@@ -8,6 +8,7 @@ const AdminDashboard = () => {
     const [links, setLinks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [newLink, setNewLink] = useState({ text: '', href: '', icon: '' });
+    const [error, setError] = useState(null);
     const [isAdding, setIsAdding] = useState(false);
     const navigate = useNavigate();
 
@@ -26,16 +27,49 @@ const AdminDashboard = () => {
     };
 
     const fetchLinks = async () => {
+        const defaults = [
+            { text: 'Price List', href: '#', icon: '💰', order: 1 },
+            { text: 'WhatsApp', href: '#', icon: '💬', order: 2 },
+            { text: 'COA', href: '#', icon: '📄', order: 3 },
+            { text: 'Instruction & Guides', href: '#', icon: '📘', order: 4 },
+            { text: 'Tiktok', href: '#', icon: '🎵', order: 5 },
+            { text: 'Instagram', href: '#', icon: '📷', order: 6 },
+            { text: 'Thread', href: '#', icon: '🧵', order: 7 },
+        ];
+
         try {
-            const { data, error } = await supabase
+            setError(null);
+            const { data, error: fetchError } = await supabase
                 .from('links')
                 .select('*')
                 .order('order', { ascending: true });
 
-            if (error) throw error;
-            setLinks(data || []);
-        } catch (error) {
-            console.error('Error fetching links:', error);
+            if (fetchError) throw fetchError;
+
+            if (!data || data.length === 0) {
+                // If DB is empty, Show Defaults IMMEDIATELY so user sees buttons
+                console.log('DB empty. Showing defaults.');
+                setLinks(defaults);
+
+                // Try to persist them in background
+                const { error: insertError } = await supabase.from('links').insert(defaults);
+                if (insertError) {
+                    console.error('Failed to auto-seed DB:', insertError);
+                    // We don't block the UI, just log it. 
+                    // Optionally set a small warning state if needed, but user just wants to see buttons.
+                } else {
+                    // If successful, refetch to get IDs
+                    const { data: newData } = await supabase.from('links').select('*').order('order');
+                    if (newData) setLinks(newData);
+                }
+            } else {
+                setLinks(data);
+            }
+        } catch (err) {
+            console.error('Error fetching links:', err);
+            // On error, ALSO show defaults so admin isn't blank
+            setLinks(defaults);
+            setError('Database connection issue. Showing default links (unsaved).');
         } finally {
             setLoading(false);
         }
@@ -77,6 +111,8 @@ const AdminDashboard = () => {
             alert('Error adding link: ' + error.message);
         }
     };
+
+
 
     if (loading) return (
         <div className="min-h-screen flex items-center justify-center">
@@ -125,7 +161,23 @@ const AdminDashboard = () => {
 
                 {links.length === 0 && !isAdding && (
                     <div className="empty-state">
-                        No links yet. Add one to get started.
+                        {error ? (
+                            <div className="text-red-500 bg-red-50 p-4 rounded-lg">
+                                <p className="font-bold">Error:</p>
+                                <p>{error}</p>
+                                <button
+                                    onClick={() => fetchLinks()}
+                                    className="mt-2 bg-red-100 px-3 py-1 rounded text-red-700 text-sm hover:bg-red-200"
+                                >
+                                    Retry
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="flex flex-col items-center">
+                                <Loader2 className="animate-spin mb-2" />
+                                <p>Loading defaults...</p>
+                            </div>
+                        )}
                     </div>
                 )}
             </div>

@@ -29,11 +29,13 @@ const Home = () => {
         // Fallback to initial links if DB is empty to ensure site works
         console.log('No links in DB, using fallback.');
         setLinks([
-          { text: 'Place Your Order', href: 'https://tiny.cc/paureorder', icon: '🛒' },
-          { text: 'Tirzepatide Overview (Full Product & Education Guide)', href: 'https://www.canva.com/design/DAG-M5mcJYU/LlFfBr5OHdBKYF1_mzoMoA/view?utm_content=DAG-M5mcJYU&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h71df313386', icon: '📘' },
-          { text: 'Welcome Guide (Start Here)', href: 'https://tiny.cc/paureguide', icon: '📖' },
-          { text: 'Contact PAURE', href: 'https://tiny.cc/paurecontactus', icon: '💬' },
-          { text: 'Facebook — PAURE Wellness', href: 'https://www.facebook.com/paurewellness', icon: '📘' },
+          { text: 'Price List', href: '#', icon: '💰' },
+          { text: 'WhatsApp', href: '#', icon: '💬' },
+          { text: 'COA', href: '#', icon: '📄' },
+          { text: 'Instruction & Guides', href: '#', icon: '📘' },
+          { text: 'Tiktok', href: '#', icon: '🎵' },
+          { text: 'Instagram', href: '#', icon: '📷' },
+          { text: 'Thread', href: '#', icon: '🧵' },
         ]);
       }
     } catch (error) {
@@ -50,8 +52,7 @@ const Home = () => {
       <div className="bg-decor bg-orb-2"></div>
       <div className="bg-decor bg-orb-3"></div>
 
-      {/* Background Butterfly */}
-      <img src="/butterfly.png" alt="" className="bg-butterfly" />
+
 
       {/* Header Section */}
       <header className="header animate-fade-in">
@@ -65,10 +66,10 @@ const Home = () => {
         </div>
 
         <h1 className="brand-name">
-          PAURE
+          CLO Peptides
         </h1>
         <p className="brand-tagline">
-          peptides, redefined
+          Peptide Enthusiast, USER & PROVIDES
         </p>
       </header>
 

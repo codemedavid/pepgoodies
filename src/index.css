@@ -1,21 +1,23 @@
 :root {
-  /* Color Palette - SVELTEE (Champagne Gold/Ivory) */
-  --color-primary: #D4AF37;
-  /* Soft Gold */
-  --color-primary-dark: #C5A028;
-  /* Slightly darker gold for hover/active states */
-  --color-secondary: #E6C77A;
-  /* Pale Champagne */
-  --color-accent: #000000;
-  --color-text: #0D0D0D;
-  --color-text-light: #555555;
+  /* Color Palette - Pepgoodies (Green/Nature) */
+  --color-primary: #4A6741;
+  /* Muted Forest Green */
+  --color-primary-dark: #3A5232;
+  /* Darker Green */
+  --color-secondary: #8AA880;
+  /* Sage Green */
+  --color-accent: #2E4729;
+  /* Deep Green Accent */
+
+  --color-text: #1A1A1A;
+  --color-text-light: #4A4A4A;
   --color-white: #FFFFFF;
-  --color-background-cream: #F7F5F0;
-  /* Soft Ivory */
+  --color-background-cream: #F9FDF7;
+  /* Very light slightly greenish cream */
 
   /* Gradients */
   --bg-gradient: linear-gradient(180deg, var(--color-background-cream) 0%, var(--color-white) 100%);
-  --button-gradient: linear-gradient(90deg, #D4AF37 0%, #E6C77A 100%);
+  --button-gradient: linear-gradient(90deg, #4A6741 0%, #6B8E60 100%);
 
   /* Typography */
   --font-heading: 'Montserrat', sans-serif;
@@ -31,16 +33,10 @@
 body {
   font-family: var(--font-body);
   background-color: var(--color-background-cream);
-  background-image:
-    repeating-linear-gradient(45deg,
-      rgba(212, 175, 55, 0.05) 0px,
-      rgba(212, 175, 55, 0.05) 1px,
-      transparent 1px,
-      transparent 30px),
-    radial-gradient(at 0% 0%, rgba(212, 175, 55, 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(230, 199, 122, 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(212, 175, 55, 0.1) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(230, 199, 122, 0.1) 0px, transparent 50%);
+  background-image: url('/bg-leaf-v2.svg');
+  background-size: 80px;
+  /* Smaller more subtle pattern */
+  background-repeat: repeat;
   color: var(--color-text);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;

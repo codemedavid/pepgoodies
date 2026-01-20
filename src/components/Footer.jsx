@@ -5,10 +5,10 @@ const Footer = () => {
     return (
         <footer className="footer animate-fade-in delay-300">
             <p className="footer-tagline">
-                Science meets beauty
+                Reconnect. Revitalize. Recharge.
             </p>
             <p className="footer-copyright">
-                © {new Date().getFullYear()} SVELTEE
+                © {new Date().getFullYear()} Pepgoodies PH
             </p>
         </footer>
     );
